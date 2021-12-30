@@ -1,0 +1,18 @@
+import pygame
+import random
+import math
+from rcc.font import *
+from rcc.images import *
+
+class Enemy:
+    def __init__(self, x, y, name):
+        self.x = x
+        self.y = y
+        self.name = name
+        self.rect = None
+
+
+
+
+
+    
