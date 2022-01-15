@@ -81,3 +81,6 @@ def options():
                     main_menu()  # добавим после размышлений
 
         pygame.display.update()
+
+        def main_menu():
+            pass
