@@ -82,5 +82,5 @@ def options():
 
         pygame.display.update()
 
-        def main_menu():
-            pass
+def main_menu():
+    pass
