@@ -13,3 +13,7 @@ pygame.display.set_caption("Menu")
 
 BG = pygame.image.load("rcc/images/Background.png")
 BG = pygame.transform.scale(BG, (1920, 1080))
+
+
+def get_font(size):
+    return pygame.font.Font("rcc/font/font.ttf", size)
