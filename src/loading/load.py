@@ -26,14 +26,14 @@ PURPLE = (17,76,150)
 
 # Animation:
 win_block_sheet = []
-win_block_sheet.append(pygame.image.load("Win_block_1.png").convert())
-win_block_sheet.append(pygame.image.load("Win_block_2.png").convert())
-win_block_sheet.append(pygame.image.load("Win_block_3.png").convert())
-win_block_sheet.append(pygame.image.load("Win_block_4.png").convert())
-win_block_sheet.append(pygame.image.load("Win_block_5.png").convert())
-win_block_sheet.append(pygame.image.load("Win_block_6.png").convert())
-win_block_sheet.append(pygame.image.load("Win_block_7.png").convert())
-win_block_sheet.append(pygame.image.load("Win_block_8.png").convert())
+win_block_sheet.append(pygame.image.load("1.png").convert())
+win_block_sheet.append(pygame.image.load("2.png").convert())
+win_block_sheet.append(pygame.image.load("3.png").convert())
+win_block_sheet.append(pygame.image.load("4.png").convert())
+win_block_sheet.append(pygame.image.load("5.png").convert())
+win_block_sheet.append(pygame.image.load("6.png").convert())
+win_block_sheet.append(pygame.image.load("7.png").convert())
+win_block_sheet.append(pygame.image.load("8.png").convert())
 
 
 all_sprites = pygame.sprite.Group()
