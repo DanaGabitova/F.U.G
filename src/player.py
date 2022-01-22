@@ -21,3 +21,36 @@ class Player:
         self.rotation = 0
         self.jumping = False
         self.scale = [18, 27]
+        
+    def get_input(self, dt): 
+        self.player_movement = [0, 0] 
+        self.air_timer += 1 
+        keys = pygame.key.get_pressed() 
+        if keys[pygame.K_a]: 
+            if self.air_timer < 6: 
+                self.current_animation = 1 
+            else: 
+                self.animation_count = 2 
+            self.player_movement[0] -= self.movement_speed * dt * 60 
+        if keys[pygame.K_d]: 
+            if self.air_timer < 6: 
+                self.current_animation = 1 
+            else: 
+                self.animation_count = 2 
+            self.player_movement[0] += self.movement_speed * dt * 60 
+ 
+        if not keys[pygame.K_d] and not keys[pygame.K_a]: 
+            if self.air_timer < 6: 
+                self.current_animation = 0 
+            else: 
+                self.current_animation = 2 
+ 
+        if self.player_movement[0] > 0: 
+            self.flipped = False 
+        elif self.player_movement[0] < 0: 
+            self.flipped = True 
+ 
+        self.player_movement[1] += self.vertical_momentum 
+        self.vertical_momentum += 0.5 
+        if self.vertical_momentum > 3: 
+            self.vertical_momentum = 3 
