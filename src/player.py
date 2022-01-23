@@ -53,4 +53,45 @@ class Player:
         self.player_movement[1] += self.vertical_momentum 
         self.vertical_momentum += 0.5 
         if self.vertical_momentum > 3: 
-            self.vertical_momentum = 3 
+            self.vertical_momentum = 3
+ 
+    def check_collisions(self, tile_rects, scroll): 
+        hit_list = [] 
+        for tile in tile_rects: 
+            if pygame.Rect(self.player_rect.x - scroll[0], 
+                           self.player_rect.y - scroll[1], 
+                           self.player_rect.width, 
+                           self.player_rect.height).colliderect( 
+                pygame.Rect(tile[0] - scroll[0], tile[1] - scroll[1], 
+                            tile[2], tile[3])): 
+                hit_list.append(pygame.Rect(tile[0], tile[1], 16, 16)) 
+        return hit_list 
+ 
+    def move(self, tile_rects, scroll): 
+        collisions = {"top": False, 
+                      "bottom": False, 
+                      "left": False, 
+                      "right": False} 
+        self.player_rect.x += self.player_movement[0] 
+        hit_list = self.check_collisions(tile_rects, scroll) 
+        for tile in hit_list: 
+            if self.player_movement[0] > 0: 
+                self.player_rect.right = tile.left 
+                collisions["right"] = True 
+            elif self.player_movement[0] < 0: 
+                self.player_rect.left = tile.right 
+                collisions["left"] = True 
+ 
+        self.player_rect.y += self.player_movement[1] 
+        hit_list = self.check_collisions(tile_rects, scroll) 
+        for tile in hit_list: 
+            if self.player_movement[1] > 0: 
+                self.player_rect.bottom = tile.top 
+                collisions["bottom"] = True 
+                self.rotation = 0 
+                self.jumping = False 
+            elif self.player_movement[1] < 0: 
+                self.player_rect.top = tile.bottom 
+                collisions["top"] = True 
+ 
+        return self.player_rect, collisions 
