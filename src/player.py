@@ -99,3 +99,12 @@ class Player:
     def calculate_scroll(self):
         self.scroll[0] += (self.player_rect.x - self.scroll[0] - 150) / 10
         self.scroll[1] += (self.player_rect.y - self.scroll[1] - 150) / 10
+    
+    def draw(self, display, scroll):
+        self.animation_index = animate(self.animations[self.current_animation], self.animation_index, 10)
+        image = self.animations[self.current_animation][self.animation_index // 10]
+        display.blit(pygame.transform.flip(pygame.transform.rotate(image, self.rotation), self.flipped, False), (self.player_rect.x - scroll[0], self.player_rect.y - scroll[1] - 2))
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        rel_x, rel_y = mouse_x - self.player_rect.x - scroll[0] + image.get_width() / 2, mouse_y - self.player_rect.y - scroll[1]
+        angle = math.atan2(rel_y, rel_x)
+        angle = math.degrees(angle)
