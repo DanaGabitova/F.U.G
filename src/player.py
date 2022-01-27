@@ -95,3 +95,7 @@ class Player:
                 collisions["top"] = True 
  
         return self.player_rect, collisions 
+
+    def calculate_scroll(self):
+        self.scroll[0] += (self.player_rect.x - self.scroll[0] - 150) / 10
+        self.scroll[1] += (self.player_rect.y - self.scroll[1] - 150) / 10
