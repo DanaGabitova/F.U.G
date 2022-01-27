@@ -108,3 +108,16 @@ class Player:
         rel_x, rel_y = mouse_x - self.player_rect.x - scroll[0] + image.get_width() / 2, mouse_y - self.player_rect.y - scroll[1]
         angle = math.atan2(rel_y, rel_x)
         angle = math.degrees(angle)
+    
+   def main(self, display, dt, tile_rects, scroll):
+        if self.rotation >= 360 or self.rotation <= -360:
+            self.rotation = 0
+            self.jumping = False
+        self.get_input(dt)
+        self.rect, collisions = self.move(tile_rects, scroll)
+        if collisions['bottom'] == True:
+            self.air_timer = 0
+        if collisions['top'] == True:
+            self.vertical_momentum = 0
+        self.calculate_scroll()
+        self.draw(display, scroll)
