@@ -18,6 +18,35 @@ class FlyingEnemy(Enemy):
         self.bullet_cooldown = 0
         self.animation_count = 0 
 
+    def draw(self, display, scroll, player_rect):
+        self.rect = pygame.Rect(self.x-scroll[0], self.y-scroll[1], 16, 16)
+        self.enemy_vector = pygame.Vector2(self.rect.center)
+        self.player_vector = pygame.Vector2(pygame.Rect(player_rect.x - 
+                                                        scroll[0] +
+                                                        self.offset[0],
+                                                        player_rect.y - 
+                                                        scroll[1] +
+                                                        self.offset[1],
+                                                        player_rect.width,
+                                                        player_rect.height
+                                                        ).center)
+
+        try:
+            towards = ((self.player_vector - self.enemy_vector).normalize() /
+                       self.speed)
+            self.dist = math.hypot((player_rect.x - scroll[0]) -
+                                   (self.x - scroll[0]),
+                                   (player_rect.y - scroll[1]) -
+                                   (self.y - scroll[1]))
+            if 40 < self.dist < 150:
+                self.x += towards[0]
+                self.y += towards[1]
+        except Exception:
+            pass
+
+        self.animation_count = animate(skeleton_imgs, self.animation_count, 5)
+        display.blit(skeleton_imgs[self.animation_count // 5],
+                     (self.x - scroll[0], self.y - scroll[1]))
 
 
 
