@@ -55,7 +55,7 @@ class Player:
         if self.vertical_momentum > 3: 
             self.vertical_momentum = 3
  
-    def check_collisions(self, tile_rects, scroll): 
+    def check_collisions(self, tile_rects, scroll):  #взаимодействия
         hit_list = [] 
         for tile in tile_rects: 
             if pygame.Rect(self.player_rect.x - scroll[0], 
@@ -67,7 +67,7 @@ class Player:
                 hit_list.append(pygame.Rect(tile[0], tile[1], 16, 16)) 
         return hit_list 
  
-    def move(self, tile_rects, scroll): 
+    def move(self, tile_rects, scroll):  # движение
         collisions = {"top": False, 
                       "bottom": False, 
                       "left": False, 
@@ -96,11 +96,11 @@ class Player:
  
         return self.player_rect, collisions 
 
-    def calculate_scroll(self):
+    def calculate_scroll(self):  
         self.scroll[0] += (self.player_rect.x - self.scroll[0] - 150) / 10
         self.scroll[1] += (self.player_rect.y - self.scroll[1] - 150) / 10
     
-    def draw(self, display, scroll):
+    def draw(self, display, scroll):  # отрисовка
         self.animation_index = animate(self.animations[self.current_animation],
                                        self.animation_index, 10)
         image = self.animations[self.current_animation][self.animation_index 
