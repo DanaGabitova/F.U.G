@@ -56,3 +56,9 @@ def render_button(display, text, font, bold, color, position, clicking):  #
         pygame.draw.rect(display, color, text_rect, 1)
         if clicking:
             pass    
+ 
+def calculate_delta_time(dt, prev_time):
+    now = time.time()
+    dt = now - prev_time
+    prev_time = now
+    return dt, prev_time
