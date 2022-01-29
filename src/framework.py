@@ -86,3 +86,7 @@ def fill_displays(displays, colors):
     for index, display in enumerate(displays):
         display.fill(colors[index])
         
+def animate(image_list, animation_index, time_to_show_image_on_screen):
+    if animation_index + 1 >= len(image_list) * time_to_show_image_on_screen:
+        animation_index = 0
+    animation_index += 1
