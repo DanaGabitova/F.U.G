@@ -149,3 +149,9 @@ def render_grass(display, scroll, grass, dt, player):
                                         scroll[0], img[2] -
                                         int(img[0].get_height() / 2) -
                                         scroll[1]))
+
+def ghost_effect(entity):
+    entity.alpha -= 5
+
+def jump_effect(entity):
+    entity.alpha -= 20                
