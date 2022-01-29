@@ -43,3 +43,16 @@ def get_text_rect(text):
 def render_text(display, text, font, bold, color, position):  # отображение текста
     text = font.render(text, bold, color)
     display.blit(text, position)
+
+def render_button(display, text, font, bold, color, position, clicking):  # 
+    text = font.render(text, bold, color)
+    text_rect = get_text_rect(text)
+    text_rect.center = (position[0] + text_rect.width / 2, position[1]
+                        + text_rect.height / 2)
+    display.blit(text, position)
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    mouse_pos = (mouse_x, mouse_y)
+    if text_rect.collidepoint(mouse_pos):
+        pygame.draw.rect(display, color, text_rect, 1)
+        if clicking:
+            pass    
