@@ -171,3 +171,25 @@ def flame_effect(display, entity, shadows, scroll, sine):
     pygame.draw.circle(shadows, (0, 255, 255, 100), (entity.x - scroll[0],
                                                      entity.y - scroll[1]),
                        (1.5 * entity.radius) + sine * 5)    
+
+def render_button(display, text, font, bold, color,
+                  position, clicking, func, thing):
+    text = font.render(text, bold, color)
+    text_rect = get_text_rect(text)
+    text_rect.height -= 10
+    text_rect.center = (position[0] + text_rect.width / 2,
+                        position[1] + text_rect.height / 2)
+
+    display.blit(text, position)
+
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    mouse_pos = (mouse_x / 3, mouse_y / 3)
+
+    if thing:
+        if text_rect.collidepoint(mouse_pos):
+            pygame.draw.rect(display, color, (text_rect.x, text_rect.y + 10,
+                                              text_rect.width,
+                                              text_rect.height), 1)
+            if clicking:
+                func()
+                clicking = False    
