@@ -33,3 +33,13 @@ def load_map(map_name):
             gold.append([int(i[0]), int(i[1]) - 350])
             blocks.remove(i)
     return blocks, lights, gold, enemies    
+
+def load_font(font_name, font_size):  # для загрузки шрифта
+    return pygame.font.Font(font_name, font_size)
+
+def get_text_rect(text):  
+    return text.get_rect()
+
+def render_text(display, text, font, bold, color, position):  # отображение текста
+    text = font.render(text, bold, color)
+    display.blit(text, position)
