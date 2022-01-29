@@ -62,3 +62,9 @@ def calculate_delta_time(dt, prev_time):
     dt = now - prev_time
     prev_time = now
     return dt, prev_time
+
+def particle_burst():
+    for x in range(1):
+        particles.append(Particle(random.randrange(0, 400), -15,
+                                  random.randrange(-1, 1), -0.05,
+                                  4, (0, 255, 255), 1))
