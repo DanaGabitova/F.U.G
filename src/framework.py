@@ -68,3 +68,10 @@ def particle_burst():
         particles.append(Particle(random.randrange(0, 400), -15,
                                   random.randrange(-1, 1), -0.05,
                                   4, (0, 255, 255), 1))
+
+def handle_particles(display, scroll):
+    for particle in particles:
+        if particle.lifetime > 0:
+            particle.draw(display, scroll)
+        else:
+            particles.remove(particle)        
