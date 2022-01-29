@@ -121,3 +121,31 @@ def render_tiles(display, scroll, tiles, player_pos, tile_index):
             except:
                 pass
     return tile_rects    
+
+def render_grass(display, scroll, grass, dt, player):
+    for img in grass:
+        if img[1] - int(img[0].get_width() / 2) - scroll[0] > -20 and img[1]\
+                - int(img[0].get_width() / 2) - scroll[0] < 350:
+            if pygame.Rect(player.player_rect.x - scroll[0] - 8,
+                           player.player_rect.y - scroll[1] - 8,
+                           player.player_rect.width + 16,
+                           player.player_rect.height + 16)\
+                    .colliderect(pygame.Rect(img[1]
+                                             - int(img[0].get_width() / 2)
+                                             - scroll[0] + 10,
+                                             img[2] -
+                                             int(img[0].get_height() / 2)
+                                             - scroll[1] + 10, 8, 16)):
+                img_copy = pygame.transform.rotate(img[0], (np.sin(img[3]))
+                                                   * img[4])
+                display.blit(img_copy, (img[1]-int(img[0].get_width() / 2)
+                                        - scroll[0], img[2] -
+                                        int(img[0].get_height() / 2)
+                                        - scroll[1]))
+            else:
+                img[3] += dt
+                img_copy = rotate(img[0], round((np.sin(img[3])) * 10, 5))
+                display.blit(img_copy, (img[1] - int(img[0].get_width() / 2) -
+                                        scroll[0], img[2] -
+                                        int(img[0].get_height() / 2) -
+                                        scroll[1]))
