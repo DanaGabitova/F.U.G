@@ -107,3 +107,17 @@ def getList(dict):
 def play_sound(path_to_sound):
     sound = pygame.mixer.Sound(path_to_sound)
     sound.play()
+
+def render_tiles(display, scroll, tiles, player_pos, tile_index):
+    tile_rects = []
+    for _ in tiles:
+        tile_rects.append([int(_[0]), int(_[1]) - 350, 16, 16, _[2]])
+        x = int(_[0]) - scroll[0]
+        y = int(_[1]) - scroll[1] - 350
+        dist = math.hypot(player_pos[0] - x, player_pos[1] - y)
+        if dist < 100:
+            try:
+                display.blit(tile_index[_[2]], (x, y))
+            except:
+                pass
+    return tile_rects    
