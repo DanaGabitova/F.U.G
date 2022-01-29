@@ -91,3 +91,19 @@ def animate(image_list, animation_index, time_to_show_image_on_screen):
         animation_index = 0
     animation_index += 1
     return animation_index
+
+def render_fps_font(font, fps):
+    return font.render(fps, True, (255, 255, 255))
+
+def rotate(image, rotation):
+    return pygame.transform.rotate(image, rotation)
+
+def getList(dict):
+    list = []
+    for key in dict.keys():
+        list.append(key)
+    return list
+
+def play_sound(path_to_sound):
+    sound = pygame.mixer.Sound(path_to_sound)
+    sound.play()
