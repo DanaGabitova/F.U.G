@@ -81,4 +81,8 @@ def render_shadows(display, scroll, shadow_size):
         pygame.draw.circle(display, (0, 0, 0, i * 50),
                            (100 - scroll[0] + 16, 100 - scroll[1] + 16),
                            (shadow_size + (i * 10)))
-            
+
+def fill_displays(displays, colors):
+    for index, display in enumerate(displays):
+        display.fill(colors[index])
+        
