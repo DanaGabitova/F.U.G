@@ -154,4 +154,20 @@ def ghost_effect(entity):
     entity.alpha -= 5
 
 def jump_effect(entity):
-    entity.alpha -= 20                
+    entity.alpha -= 20   
+
+def circle_surf(radius, color):
+    surf = pygame.Surface((radius, radius))
+    pygame.draw.circle(surf, color, (radius, radius), radius)
+    surf.set_colorkey((0, 0, 0))
+    return surf
+
+def flame_effect(display, entity, shadows, scroll, sine):
+    if entity.radius > 1:
+        entity.radius -= 0.04
+    else:
+        entities.remove(entity)
+    surf = pygame.Surface((6, 6))
+    pygame.draw.circle(shadows, (0, 255, 255, 100), (entity.x - scroll[0],
+                                                     entity.y - scroll[1]),
+                       (1.5 * entity.radius) + sine * 5)    
