@@ -264,6 +264,147 @@ def main():
                     except Exception:
                         pass
                     break
+        for particle in particles:
+            particle[0] += particle[2]
+            particle[1] -= particle[3]
+            particle[3] -= 1
+            if particle[2] == 0:
+                particle[2] = 2
+            particle[4] -= 0.05
+            if particle[4] <= 0:
+                particles.remove(particle)
+            pygame.draw.circle(display, particle[5], (particle[0]-scroll[0], particle[1]-scroll[1]), particle[4])
 
+        for circle in circles:
+            circle[2] += 3
+            circle[3] -= 1
+            if circle[3] <= 1:
+                circles.remove(circle)
+            pygame.draw.circle(display, random.choice([(221, 66, 70), (223, 214, 138)]), (circle[0]-scroll[0], circle[1]-scroll[1]), circle[2], circle[3])
+
+        if int(gold_count) >= gold_per_level[map_index]:
+
+            if map_index != 3:
+                circle_radius += circle_radius//12
+                pygame.draw.circle(display, (0,0,0), (300//2, 233.33//2), circle_radius)
+
+                if circle_radius > 300:
+
+                    map_index += 1
+                    tiles, lights, gold, enemys = framework.load_map(maps[map_index])
+                    entities = []
+                    enemies = []
+                    for enemy in enemys:
+                        enemies.append(FlyingEnemy(enemy[0], enemy[1], "FlyingEnemy"))
+
+                    player = player_.Player(100, 100, 4)
+                    gold_count = 0
+                    circle_radius = 30
+
+            else:
+                circle_radius += circle_radius//12
+                pygame.draw.circle(display, (0,0,0), (300//2, 233.33//2), circle_radius)
+                FONT = pygame.font.Font("assets/font/AvenuePixel-Regular.ttf", 35)
+                text4 = framework.render_fps_font(FONT, "You Win! Thanks for playing")
+                display.blit(text4, (24, 100))
+
+        framework.handle_particles(display, scroll)
+
+        if map_index == 0:
+            text = framework.render_fps_font(SMALL_FONT, "Hunt for the gold")
+            display.blit(text, (150-scroll[0], 100-scroll[1]))
+
+            text2 = framework.render_fps_font(SMALL_FONT, "Click to fire bomb")
+            display.blit(text2, (80-scroll[0], -50-scroll[1]))
+
+        if dead:
+
+            text3 = framework.render_fps_font(FPS_FONT, "Dead, Enter to restart...")
+            display.blit(text3, (20, 100))
+
+
+        start_time += dt*5
+        for i in reversed(range(1)):
+            pygame.draw.circle(shadows, (0, 0, 0, 0+i*50), (player.player_rect.x-scroll[0]+3, player.player_rect.y-scroll[1]+4), (40+i*5))
+
+        framework.handle_particles(display, scroll)
+
+
+        for light in lights:
+            display.blit(torch_img, (light[0]-scroll[0], light[1]-scroll[1]))
+            if flame_cooldown <= 0:
+                framework.entities.append(Entity(random.randrange(light[0], light[0]+10),light[1]+5, None, 255, framework.flame_effect, [0, -0.3], random.choice([(221, 66, 70), (223, 214, 138)])))
+                flame_cooldown = 4
+            else:
+                flame_cooldown -= 1
+
+        for entity in framework.entities:
+            #print(entity)
+            entity.draw(display, shadows, scroll)
+
+        for g in gold:
+            if pygame.Rect(player.player_rect.x-scroll[0], player.player_rect.y-scroll[1], player.player_rect.width, player.player_rect.height).colliderect(g[0]-scroll[0], g[1]-scroll[1], 16, 16):
+                framework.play_sound("assets/sound_effects/pickup.wav")
+                gold.remove(g)
+                for x in range(30):
+                    particles.append([g[0]+random.randrange(-20, 20), g[1]+random.randrange(-10, 10), random.randrange(-3, 3), 3, 2, (255, 184, 74)])
+                gold_count += 1
+            g[1] += np.sin(start_time)/5
+            display.blit(gold_img, (g[0]-scroll[0], g[1]-scroll[1]))
+
+        for enemy in enemies:
+            if enemy.name == "FlyingEnemy":
+                enemy.draw(display, scroll, player.player_rect)
+                if enemy.bullet_cooldown <= 0 and enemy.dist < 150:
+                    for x in range(len(projectiles)):
+                        enemy_bullets.append([enemy.x+skeleton_imgs[0].get_width()/2, enemy.y+skeleton_imgs[0].get_height()/2, projectiles[x], 300])
+                    enemy.bullet_cooldown = 100
+                else:
+                    enemy.bullet_cooldown -= 1
+
+            elif enemy.name == "FlyingDestroyer":
+                enemy.draw(display, scroll, player.player_rect,fall_tiles)
+
+
+                for tile in fall_tiles:
+                    enemy.width += 1
+                    pygame.draw.line(display, (212, 30, 60), (enemy.x-scroll[0]+skeleton_imgs[0].get_width()/2, enemy.y-scroll[1]+skeleton_imgs[0].get_height()/2), (tile[0]-scroll[0]+8, tile[1]-scroll[1]+8), enemy.width)
+
+                    if enemy.width == 5:
+                        tile_rects.remove(tile)
+
+                if not fall_tiles:
+                    enemy.width = 1
+
+        for bullet in enemy_bullets:
+            pygame.draw.circle(shadows, (212, 30, 60,100), (bullet[0]-scroll[0], bullet[1]-scroll[1]), 2+abs(np.sin(start_time)*5))
+            bullet[0] += bullet[2][0]
+            bullet[1] += bullet[2][1]
+            bullet[3] -= 1
+            pygame.draw.circle(display, (212, 30, 60), (bullet[0]-scroll[0], bullet[1]-scroll[1]), 2)
+
+            if pygame.Rect(bullet[0]-scroll[0]-2, bullet[1]-scroll[1]-2, 4, 4).colliderect(player.player_rect.x-scroll[0], player.player_rect.y-scroll[1],
+            player.player_rect.width, player.player_rect.height):
+                if not dead:
+                    framework.play_sound("assets/sound_effects/player_death.wav")
+                    screen_shake = 10
+                    dead = True
+
+
+            if bullet[3] <= 0:
+                enemy_bullets.remove(bullet)
+
+        gold_count_text = framework.render_fps_font(FPS_FONT, f"Gold: {gold_count}/{gold_per_level[map_index]}")
+        display.blit(gold_count_text, (10,10))
+
+        if screen_shake > 0:
+            screen_shake -= 1
+
+
+        SCREEN.blit(pygame.transform.scale(display,WINDOW_SIZE),(0,0))
+        if lighting:
+            SCREEN.blit(pygame.transform.scale(shadows,WINDOW_SIZE),(0,0))
+        pygame.display.flip()
+        CLOCK.tick(FPS)
 
 
