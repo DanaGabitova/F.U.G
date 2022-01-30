@@ -17,7 +17,7 @@ class Bullet:
         self.y_vel = 3
         self.start_time = time.time()
 
-        def draw(self, display, shadows, scroll):
+    def draw(self, display, shadows, scroll):
         self.x += -self.x_vel
         self.y += -self.y_vel
         self.y_vel -= 0.4
