@@ -16,5 +16,14 @@ class Bullet:
         self.rot_angle = rot_angle
         self.y_vel = 3
         self.start_time = time.time()
-        
 
+        def draw(self, display, shadows, scroll):
+        self.x += -self.x_vel
+        self.y += -self.y_vel
+        self.y_vel -= 0.4
+        self.start_time += 1
+        pygame.draw.circle(shadows, (212, 30, 60, 100),
+                           (self.x - scroll[0], self.y - scroll[1]),
+                           3 + abs(np.sin(self.start_time) * 5))
+        display.blit(self.image, (self.x - scroll[0] - 5,
+                                  self.y-scroll[1] - 5))
