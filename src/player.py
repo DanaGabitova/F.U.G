@@ -1,5 +1,5 @@
 import pygame
-from rcc.images import *
+from images import *
 from framework import *
 import numpy as np
 from functools import lru_cache
