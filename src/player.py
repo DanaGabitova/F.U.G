@@ -119,7 +119,7 @@ class Player:
         angle = math.atan2(rel_y, rel_x)
         angle = math.degrees(angle)
     
-   def main(self, display, dt, tile_rects, scroll):
+    def main(self, display, dt, tile_rects, scroll):
         if self.rotation >= 360 or self.rotation <= -360:
             self.rotation = 0
             self.jumping = False
