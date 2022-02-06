@@ -143,7 +143,7 @@ while menu:
     CLOCK.tick(FPS)
 
 while not menu:
-    framework.fill_displays([display, shadows], [(17, 5, 36), (0,0,0)])
+    framework.fill_displays([display, shadows], [(17, 5, 36), (0, 0, 0)])
 
 
     scroll[0] += (player.player_rect.x-scroll[0]-150)/8
@@ -153,7 +153,8 @@ while not menu:
 
     if player.player_movement[0] > 0 or player.player_movement[0] < 0:
         if boot_cooldown_sfx <= 0:
-            sound = random.choice(["rcc/sound_effects/boot1.wav", "rcc/sound_effects/boot2.wav"])
+            sound = random.choice(["rcc/sound_effects/boot1.wav",
+                                   "rcc/sound_effects/boot2.wav"])
             framework.play_sound(sound)
             boot_cooldown_sfx = 20
         else:
