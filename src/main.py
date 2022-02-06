@@ -386,9 +386,9 @@ while not menu:
     if screen_shake > 0:
         screen_shake -= 1
     
-    SCREEN.blit(pygame.transform.scale(display,WINDOW_SIZE),(0,0))
+    SCREEN.blit(pygame.transform.scale(display, WINDOW_SIZE), (0, 0))
     if lighting:
-        SCREEN.blit(pygame.transform.scale(shadows,WINDOW_SIZE),(0,0))
+        SCREEN.blit(pygame.transform.scale(shadows, WINDOW_SIZE), (0, 0))
     pygame.display.flip()
     CLOCK.tick(FPS)
 

@@ -25,7 +25,7 @@ class Player:
         self.scale = [18, 27]
         
     def get_input(self, dt): 
-        self.player_movement = [0, 0] 
+        self.player_movement = [0, 0]
         self.air_timer += 1 
         keys = pygame.key.get_pressed() 
         if keys[pygame.K_a]: 
