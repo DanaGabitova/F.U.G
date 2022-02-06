@@ -1,8 +1,8 @@
 import pygame
 import random
 import math
-from rcc.images import *
-
+from images import *
+from framework import *
 class Enemy:
     def __init__(self, x, y, name):
         self.x = x
