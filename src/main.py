@@ -343,7 +343,7 @@ while not menu:
             enemy.draw(display, scroll, player.player_rect)
             if enemy.bullet_cooldown <= 0 and enemy.dist < 150:
                 for x in range(len(projectiles)):
-                    enemy_bullets.append([enemy.x + skeleton_imgs[0].get_width() / 2, enemy.y + skeleton_imgs[0].get_height() / 2, projectiles[x], 300])
+                    enemy_bullets.append([enemy.x + mice_imgs[0].get_width() / 2, enemy.y + mice_imgs[0].get_height() / 2, projectiles[x], 300])
                 enemy.bullet_cooldown = 100
             else:
                 enemy.bullet_cooldown -= 1
@@ -354,7 +354,7 @@ while not menu:
 
             for tile in fall_tiles:
                 enemy.width += 1
-                pygame.draw.line(display, (212, 30, 60), (enemy.x - scroll[0] + skeleton_imgs[0].get_width() / 2, enemy.y - scroll[1] + skeleton_imgs[0].get_height() / 2), (tile[0] - scroll[0] + 8, tile[1] - scroll[1] + 8), enemy.width)
+                pygame.draw.line(display, (212, 30, 60), (enemy.x - scroll[0] + mice_imgs[0].get_width() / 2, enemy.y - scroll[1] + mice_imgs[0].get_height() / 2), (tile[0] - scroll[0] + 8, tile[1] - scroll[1] + 8), enemy.width)
 
                 if enemy.width == 5:
                     tile_rects.remove(tile)
