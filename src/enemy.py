@@ -44,8 +44,8 @@ class FlyingEnemy(Enemy):
         except Exception:
             pass
 
-        self.animation_count = animate(skeleton_imgs, self.animation_count, 5)
-        display.blit(skeleton_imgs[self.animation_count // 5],
+        self.animation_count = animate(mice_imgs, self.animation_count, 5)
+        display.blit(mice_imgs[self.animation_count // 5],
                      (self.x - scroll[0], self.y - scroll[1]))
 
 class FlyingDestoryer(Enemy):
@@ -84,7 +84,7 @@ class FlyingDestoryer(Enemy):
         except Exception as e:
             print(e)
 
-        self.animation_count = animate(skeleton_imgs, self.animation_count, 5)
-        display.blit(skeleton_imgs[self.animation_count // 5],
+        self.animation_count = animate(mice_imgs, self.animation_count, 5)
+        display.blit(mice_imgs[self.animation_count // 5],
                      (self.x - scroll[0], self.y - scroll[1]))
    
