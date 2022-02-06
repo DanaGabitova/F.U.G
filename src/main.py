@@ -206,7 +206,7 @@ while not menu:
                     
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1 and shoot_cooldown <= 0:
-                framework.play_sound("assets/sound_effects/throw.flac")
+                framework.play_sound("rcc/sound_effects/throw.flac")
                 mp = pygame.mouse.get_pos()
                 rel_x, rel_y = mp[0] - player.player_rect.x-scroll[0], mp[1] - player.player_rect.y - scroll[1]
                 angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
