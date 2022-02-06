@@ -42,11 +42,10 @@ torch_img = load_img("rcc/images/torch.png", False)
 
 gold_img = load_img("rcc/images/block0.png", False)
 
-bow_img = load_img("rcc/images/Bow.png", False)
 arrow_img = load_img("rcc/images/Arrow.png", False)
 bomb_img = load_img("rcc/images/Bomb.png", False)
 gold_img = load_img("rcc/images/Gold.png", False)
 
-mice_imgs = [load_img("rcc/images/mice/radioactivemice1.png", True),
-load_img("rcc/images/mice/radioactivemice2.png", True),
-load_img("rcc/images/mice/radioactivemice3.png", True)]
+mice_imgs = [load_img("rcc/images/Enemy/radioactivemice1.png", True),
+load_img("rcc/images/Enemy/radioactivemice2.png", True),
+load_img("rcc/images/Enemy/radioactivemice3.png", True)]
