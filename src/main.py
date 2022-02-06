@@ -171,14 +171,22 @@ while not menu:
     dt = now - prev_time
     prev_time = now
 
-    tile_rects = framework.render_tiles(display, scroll, tiles, [player.player_rect.x - scroll[0], player.player_rect.y - scroll[1]], block_dict)
+    tile_rects = framework.render_tiles(display, scroll, tiles,
+                                        [player.player_rect.x - scroll[0],
+                                         player.player_rect.y - scroll[1]],
+                                        block_dict)
     if not dead:
         player.main(display, dt, tile_rects, scroll)
     else:
         player.player_movement = [0,0]
         if not has_spawned_death_particles:
             for x in range(50):
-                particles.append([player.x + random.randrange(-3, 3) - scroll[0], player.y + random.randrange(0, 10) - scroll[1], random.randrange(-3, 3), 10, 3, random.choice([(232, 123, 67), (245, 161, 93)])])
+                particles.append([player.x + random.randrange(-3, 3)
+                                  - scroll[0],
+                                  player.y + random.randrange(0, 10)
+                                  - scroll[1], random.randrange(-3, 3),
+                                  10, 3, random.choice([(232, 123, 67),
+                                                        (245, 161, 93)])])
             has_spawned_death_particles = True
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -193,13 +201,15 @@ while not menu:
 
 
             if event.key == pygame.K_RETURN:
-                tiles, lights, gold, enemys = framework.load_map(maps[map_index])
+                tiles, lights, gold,\
+                enemys = framework.load_map(maps[map_index])
                 entities = []
                 enemies = []
                 has_spawned_death_particles = False
                 enemy_bullets = []
                 for enemy in enemys:
-                    enemies.append(FlyingEnemy(enemy[0], enemy[1], "FlyingEnemy"))
+                    enemies.append(FlyingEnemy(enemy[0], enemy[1],
+                                               "FlyingEnemy"))
 
                 player = player_.Player(100, 100, 4)
                 gold_count = 0
@@ -210,10 +220,14 @@ while not menu:
             if event.button == 1 and shoot_cooldown <= 0:
                 framework.play_sound("rcc/sound_effects/throw.flac")
                 mp = pygame.mouse.get_pos()
-                rel_x, rel_y = mp[0] - player.player_rect.x-scroll[0], mp[1] - player.player_rect.y - scroll[1]
+                rel_x, rel_y = mp[0] - player.player_rect.x-scroll[0], mp[1]\
+                               - player.player_rect.y - scroll[1]
                 angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
 
-                bullets.append(Bullet(player.player_rect.x, player.player_rect.y, mp[0] / 3, mp[1] / 3, scroll, bomb_img, angle))
+                bullets.append(Bullet(player.player_rect.x,
+                                      player.player_rect.y,
+                                      mp[0] / 3, mp[1] / 3, scroll,
+                                      bomb_img, angle))
                 shoot_cooldown = 37
 
     if shoot_cooldown > 0:
@@ -224,11 +238,22 @@ while not menu:
         player.player_movement[0] += 10
         for enemy in enemies:
             try:
-                if pygame.Rect(bullet.x-scroll[0] - 25, bullet.y - scroll[1] - 25, 16, 16).colliderect(pygame.Rect(enemy.x - scroll[0] + enemy.rect.width, enemy.y - scroll[1] + enemy.rect.height, enemy.rect.width, enemy.rect.height)):
-                    framework.play_sound("rcc/sound_effects/skeleton_death.wav")
+                if pygame.Rect(bullet.x-scroll[0] - 25,
+                               bullet.y - scroll[1] - 25, 16, 16)\
+                        .colliderect(
+                    pygame.Rect(enemy.x - scroll[0] +
+                                enemy.rect.width, enemy.y - scroll[1] +
+                                                  enemy.rect.height,
+                                enemy.rect.width, enemy.rect.height)):
+                    framework.play_sound\
+                        ("rcc/sound_effects/skeleton_death.wav")
                     screen_shake = 10
                     for x in range(50):
-                        particles.append([bullet.x + random.randrange(-20, 20), bullet.y + random.randrange(-10, 10), random.randrange(-3, 3), 10, 3, random.choice([(221, 66, 70), (223, 214, 138)])])
+                        particles.append([bullet.x + random.randrange(-20, 20),
+                                          bullet.y + random.randrange(-10, 10),
+                                          random.randrange(-3, 3), 10, 3,
+                                          random.choice([(221, 66, 70),
+                                                         (223, 214, 138)])])
 
                     enemies.remove(enemy)
                     bullets.remove(bullet)
