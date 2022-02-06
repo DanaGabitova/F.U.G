@@ -1,10 +1,11 @@
 import pygame
 import os
+from constants import *
 
 def load_img(img, transparent):
     if transparent == False:
         image = pygame.image.load(img).convert()
-        image.set_colorkey(255, 255, 255)
+        image.set_colorkey(WHITE)
     else:
         image = pygame.image.load(img)
     return image
