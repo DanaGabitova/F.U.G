@@ -276,7 +276,7 @@ while not menu:
             circle_radius += circle_radius // 12
             pygame.draw.circle(display, (0, 0, 0), (300 // 2, 230 // 2), circle_radius)
 
-            if circle_radius > 300
+            if circle_radius > 300:
                 map_index += 1
                 tiles, lights, gold, enemys = framework.load_map(maps[map_index])
                 entities = []
