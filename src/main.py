@@ -79,7 +79,7 @@ projectiles = [[-2, 2], [2, -2], [-2, 0], [2, 0], [0, 2], [0, -2]]
 
 particles = []
 
-circles=[]
+circles = []
 
 fall_tiles = []
 
@@ -132,9 +132,11 @@ while menu:
     display.blit(main_menu_text, (42, 20))
 
     framework.render_button(display, "Play", FPS_FONT, False, (255,255,255), (125, 100), clicking, play, True)
+    if lighting:
+        framework.render_button(display, "нажмите на E", FPS_FONT, False,
+                                (255, 255, 255), (40, 135), False,
+                                fancy_lighting_off, False)
 
-    if not lighting:
-        framework.render_button(display, "PRESS E", FPS_FONT, False, (255,255,255), (40, 135), False, fancy_lighting_on, False)
     clicking = False
 
 
