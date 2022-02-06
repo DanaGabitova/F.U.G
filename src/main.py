@@ -223,7 +223,7 @@ while not menu:
         for enemy in enemies:
             try:
                 if pygame.Rect(bullet.x-scroll[0] - 25, bullet.y - scroll[1] - 25, 16, 16).colliderect(pygame.Rect(enemy.x - scroll[0] + enemy.rect.width, enemy.y - scroll[1] + enemy.rect.height, enemy.rect.width, enemy.rect.height)):
-                    framework.play_sound("assets/sound_effects/skeleton_death.wav")
+                    framework.play_sound("rcc/sound_effects/skeleton_death.wav")
                     screen_shake = 10
                     for x in range(50):
                         particles.append([bullet.x + random.randrange(-20, 20), bullet.y + random.randrange(-10, 10), random.randrange(-3, 3), 10, 3, random.choice([(221, 66, 70), (223, 214, 138)])])
